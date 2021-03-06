@@ -1,0 +1,8 @@
+.idea
+.gradle
+build_ios
+build_macos
+build_android
+build_android_cmake
+build_windows
+local.properties
