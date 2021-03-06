@@ -5,6 +5,8 @@
 #include "../MyCrossPlatformClass.hpp"
 #include "Utilities/JniHelpers.hpp"
 
+#include <stdexcept>
+
 MyCrossPlatformClass::MyCrossPlatformClass(JNIEnv* initJniEnv, jobject initJniObject)
     : jniEnv(initJniEnv)
     // Immediatelly create a global reference so we don't loose it
@@ -17,9 +19,19 @@ MyCrossPlatformClass::~MyCrossPlatformClass()
     jniEnv->DeleteGlobalRef(jniObject);
 }
 
-void MyCrossPlatformClass::nativeMethod() const noexcept
+void MyCrossPlatformClass::nativeMethod() const
 {
-    // TODO: call Java
+    auto javaClass = jniEnv->FindClass("com/example/cppcrossplatform/MyCrossPlatformClass");
+    if (!javaClass)
+    {
+        throw std::runtime_error("Failed to find MyCrossPlatformClass in JNI environment");
+    }
+    auto methodId = jniEnv->GetMethodID(javaClass, "nativeMethod", "()V");
+    if (!methodId)
+    {
+        throw std::runtime_error("Failed to find nativeMethod in MyCrossPlatformClass");
+    }
+    jniEnv->CallVoidMethod(jniObject, methodId);
 }
 
 extern "C" JNIEXPORT jlong JNICALL Java_com_example_cppcrossplatform_MyCrossPlatformClass_constructNative(JNIEnv* jniEnv, jobject thisRef)

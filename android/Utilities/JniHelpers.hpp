@@ -19,13 +19,13 @@ T* getPtr(JNIEnv* jniEnv, jobject ptrThis)
         jniEnv->FatalError("GetObjectClass failed");
     }
     // Now we find the field ID
-    jfieldID nativePtrID = jniEnv->GetFieldID(javaClass, "nativePtr", "J");
-    if (!nativePtrID)
+    jfieldID nativePtrId = jniEnv->GetFieldID(javaClass, "nativePtr", "J");
+    if (!nativePtrId)
     {
         jniEnv->FatalError("GetFieldID failed");
     }
     // And now we read the pointer value, cast it and return it
-    jlong nativePtr = jniEnv->GetLongField(ptrThis, nativePtrID);
+    jlong nativePtr = jniEnv->GetLongField(ptrThis, nativePtrId);
     return reinterpret_cast<T*>(nativePtr);
 }
 

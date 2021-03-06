@@ -12,6 +12,8 @@ set(SOURCE_FILES
 if(ANDROID)
     list(APPEND SOURCE_FILES
             "android/MyCrossPlatformClass.cpp"
+            "android/MyCrossPlatformClass2.hpp"
+            "android/MyCrossPlatformClass2.cpp"
             "android/Utilities/JniHelpers.hpp")
     add_library(${PROJECT_NAME} SHARED ${SOURCE_FILES})
 else()
