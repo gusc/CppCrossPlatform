@@ -19,7 +19,7 @@ MyCrossPlatformClass::~MyCrossPlatformClass()
     jniEnv->DeleteGlobalRef(jniObject);
 }
 
-void MyCrossPlatformClass::nativeMethod() const
+void MyCrossPlatformClass::platformNativeMethod() const
 {
     auto javaClass = jniEnv->FindClass("com/example/cppcrossplatform/MyCrossPlatformClass");
     if (!javaClass)
@@ -44,13 +44,13 @@ extern "C" JNIEXPORT jlong JNICALL Java_com_example_cppcrossplatform_MyCrossPlat
 extern "C" JNIEXPORT void JNICALL Java_com_example_cppcrossplatform_MyCrossPlatformClass_destructNative(JNIEnv* jniEnv, jobject thisRef)
 {
     // Java has asked us to delete the C++ object
-    auto* nativeObject = getPtr<MyCrossPlatformClass>(jniEnv, thisRef);
+    auto* nativeObject = getNativePtr<MyCrossPlatformClass>(jniEnv, thisRef);
     delete nativeObject;
 }
 
 extern "C" JNIEXPORT void JNICALL Java_com_example_cppcrossplatform_MyCrossPlatformClass_cppMethod(JNIEnv* jniEnv, jobject thisRef)
 {
     // Java has called cppmethod
-    auto* nativeObject = getPtr<MyCrossPlatformClass>(jniEnv, thisRef);
+    auto* nativeObject = getNativePtr<MyCrossPlatformClass>(jniEnv, thisRef);
     nativeObject->cppMethod();
 }

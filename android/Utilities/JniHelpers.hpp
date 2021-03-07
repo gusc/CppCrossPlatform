@@ -10,7 +10,7 @@
 // This method will return the raw C++ pointer stored
 // in the nativePtr member of the Java object
 template<typename T>
-T* getPtr(JNIEnv* jniEnv, jobject ptrThis)
+T* getNativePtr(JNIEnv* jniEnv, jobject ptrThis)
 {
     // First we need to get the class definition of the object
     jclass javaClass = jniEnv->GetObjectClass(ptrThis);

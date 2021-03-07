@@ -18,7 +18,7 @@ public:
     MyCrossPlatformClass(const MyCrossPlatformClass&) = delete;
     MyCrossPlatformClass& operator=(const MyCrossPlatformClass&) = delete;
     ~MyCrossPlatformClass();
-    void nativeMethod() const;
+    void platformNativeMethod() const;
     void cppMethod() const noexcept;
 private:
 #if defined(__ANDROID__)

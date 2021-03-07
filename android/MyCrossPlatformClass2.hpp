@@ -14,7 +14,7 @@ public:
     MyCrossPlatformClass2(const MyCrossPlatformClass2&) = delete;
     MyCrossPlatformClass2& operator=(const MyCrossPlatformClass2&) = delete;
     ~MyCrossPlatformClass2();
-    void nativeMethod() const;
+    void platformNativeMethod() const;
     void cppMethod() const noexcept;
 private:
     jobject jniObject;

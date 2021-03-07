@@ -15,9 +15,10 @@ JNIEnv* jniEnv;
 void cppMethodCall(JNIEnv* jniEnv, jobject thisRef)
 {
     // Java has called cppmethod
-    auto* nativeObject = getPtr<MyCrossPlatformClass2>(jniEnv, thisRef);
+    auto* nativeObject = getNativePtr<MyCrossPlatformClass2>(jniEnv, thisRef);
     nativeObject->cppMethod();
 }
+// Method map for MyCrossPlatformClass2 in Java
 const JNINativeMethod methodsArray[] =
 {
     { "cppMethod", "()V", reinterpret_cast<void*>(&cppMethodCall) }
@@ -38,11 +39,13 @@ MyCrossPlatformClass2::MyCrossPlatformClass2()
         throw std::runtime_error("Failed to find MyCrossPlatformClass2 constructor");
     }
     // Create object and pass this pointer as it's first argument for storage
-    jniObject = jniEnv->NewObject(javaClass, constructorId, reinterpret_cast<jlong>(this));
-    if (!jniObject)
+    auto localObject = jniEnv->NewObject(javaClass, constructorId, reinterpret_cast<jlong>(this));
+    if (!localObject)
     {
         throw std::runtime_error("Failed to create MyCrossPlatformClass2");
     }
+    // Last but not least we need to create global reference so we can keep owning the Java companion class
+    jniObject = jniEnv->NewGlobalRef(localObject);
 }
 
 MyCrossPlatformClass2::~MyCrossPlatformClass2()
@@ -51,7 +54,7 @@ MyCrossPlatformClass2::~MyCrossPlatformClass2()
     jniEnv->DeleteGlobalRef(jniObject);
 }
 
-void MyCrossPlatformClass2::nativeMethod() const
+void MyCrossPlatformClass2::platformNativeMethod() const
 {
     auto javaClass = jniEnv->FindClass("com/example/cppcrossplatform/MyCrossPlatformClass2");
     if (!javaClass)
