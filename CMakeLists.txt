@@ -53,6 +53,38 @@ elseif(IOS)
     # Make Xcode manage library linking
     set_target_properties(${PROJECT_NAME} PROPERTIES XCODE_LINK_BUILD_PHASE_MODE KNOWN_LOCATION)
     set_target_properties(${PROJECT_NAME} PROPERTIES MACOSX_BUNDLE_INFO_PLIST "${CMAKE_CURRENT_LIST_DIR}/ios/Resources/Info.plist")
+elseif(APPLE)
+    set(RESOURCE_FILES
+            "macos/Resources/Main.storyboard")
+    list(APPEND SOURCE_FILES
+            "macos/Utilities/AppDelegate.hpp"
+            "macos/Utilities/AppDelegate.mm"
+            "macos/Utilities/main.mm"            
+            "macos/MyCrossPlatformClass.mm"
+            "macos/MyCrossPlatformDelegate.hpp"
+            "macos/MyCrossPlatformDelegate.mm"
+            ${RESOURCE_FILES})
+            
+    # Sort sources alphabetically
+    list(SORT SOURCE_FILES)
+    # Keep sources grouped by file system folders
+    source_group(TREE ${CMAKE_CURRENT_LIST_DIR} FILES ${SOURCE_FILES})
+    
+    add_executable(${PROJECT_NAME} MACOSX_BUNDLE ${SOURCE_FILES})
+    
+    find_library(APP_KIT AppKit)
+    find_library(FOUNDATION Foundation)
+    target_link_libraries(${PROJECT_NAME} PUBLIC ${APP_KIT} ${FOUNDATION})
+    
+    # Set resources
+    set_target_properties(${PROJECT_NAME} PROPERTIES RESOURCE "${RESOURCE_FILES}")
+    # Disable emitting bitcode
+    set_target_properties(${PROJECT_NAME} PROPERTIES XCODE_ATTRIBUTE_ENABLE_BITCODE NO)
+    # Enable automatic reference counting
+    set_target_properties(${PROJECT_NAME} PROPERTIES XCODE_ATTRIBUTE_CLANG_ENABLE_OBJC_ARC YES)
+    # Make Xcode manage library linking
+    set_target_properties(${PROJECT_NAME} PROPERTIES XCODE_LINK_BUILD_PHASE_MODE KNOWN_LOCATION)
+    set_target_properties(${PROJECT_NAME} PROPERTIES MACOSX_BUNDLE_INFO_PLIST "${CMAKE_CURRENT_LIST_DIR}/macos/Resources/Info.plist")
 else()
     message(FATAL_ERROR "Unknown target platform")
 endif()
