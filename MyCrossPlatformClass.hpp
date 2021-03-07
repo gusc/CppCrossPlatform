@@ -12,9 +12,7 @@
 class MyCrossPlatformClass
 {
 public:
-#if defined(__ANDROID__)
-    MyCrossPlatformClass(JNIEnv* initJniEnv, jobject initJniObject);
-#endif
+    MyCrossPlatformClass();
     MyCrossPlatformClass(const MyCrossPlatformClass&) = delete;
     MyCrossPlatformClass& operator=(const MyCrossPlatformClass&) = delete;
     ~MyCrossPlatformClass();
@@ -22,7 +20,6 @@ public:
     void cppMethod() const noexcept;
 private:
 #if defined(__ANDROID__)
-    JNIEnv* jniEnv { nullptr };
     jobject jniObject;
 #endif
 };
