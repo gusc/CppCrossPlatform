@@ -9,6 +9,17 @@
 #   include <jni.h>
 #endif
 
+#if defined(__APPLE__)
+#   ifdef __OBJC__
+// A standard Objective-C forward declaration when compiling within an Obective-C compilation unit
+@class MyCrossPlatformDelegate;
+#   else
+#   include <objc/objc.h>
+// Declara a type alias when compiling in C++
+typedef struct objc_object MyCrossPlatformDelegate;
+#   endif
+#endif
+
 class MyCrossPlatformClass
 {
 public:
@@ -20,7 +31,11 @@ public:
     void cppMethod() const noexcept;
 private:
 #if defined(__ANDROID__)
+    // Global reference to the Java companion object
     jobject jniObject;
+#elif defined(__APPLE__)
+    // This also keeps track of the reference
+    MyCrossPlatformDelegate* objCObject;
 #endif
 };
 

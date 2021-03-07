@@ -2,22 +2,13 @@
 // Created by Gusts Kaksis on 3/6/21.
 //
 
-#ifndef CPPCROSSPLATFORM_MYCROSSPLATFORMCLASS2_HPP
-#define CPPCROSSPLATFORM_MYCROSSPLATFORMCLASS2_HPP
+#import <Foundation/Foundation.h>
+#import "../MyCrossPlatformClass.hpp"
 
-#include <jni.h>
+@interface MyCrossPlatformDelegate : NSObject
 
-class MyCrossPlatformClass2
-{
-public:
-    MyCrossPlatformClass2();
-    MyCrossPlatformClass2(const MyCrossPlatformClass2&) = delete;
-    MyCrossPlatformClass2& operator=(const MyCrossPlatformClass2&) = delete;
-    ~MyCrossPlatformClass2();
-    void platformNativeMethod() const;
-    void cppMethod() const noexcept;
-private:
-    jobject jniObject;
-};
+-(instancetype)initWithCppObject:(MyCrossPlatformClass*)cppObject;
+-(void)platformNativeMethod;
+-(void)cppMethod;
 
-#endif //CPPCROSSPLATFORM_MYCROSSPLATFORMCLASS2_HPP
+@end

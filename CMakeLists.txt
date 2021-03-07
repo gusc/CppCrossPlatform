@@ -18,8 +18,11 @@ if(ANDROID)
     add_library(${PROJECT_NAME} SHARED ${SOURCE_FILES})
 elseif(IOS)
     set(RESOURCE_FILES
-            "MainStoryboard.storyboard")
+            "ios/Resources/Main.storyboard")
     list(APPEND SOURCE_FILES
+            "ios/Utilities/AppDelegate.hpp"
+            "ios/Utilities/AppDelegate.mm"
+            "ios/Utilities/main.mm"            
             "ios/MyCrossPlatformClass.mm"
             "ios/MyCrossPlatformDelegate.hpp"
             "ios/MyCrossPlatformDelegate.mm"
@@ -31,6 +34,10 @@ elseif(IOS)
     source_group(TREE ${CMAKE_CURRENT_LIST_DIR} FILES ${SOURCE_FILES})
     
     add_executable(${PROJECT_NAME} MACOSX_BUNDLE ${SOURCE_FILES})
+    
+    find_library(UIKIT UIKit)
+    find_library(FOUNDATION Foundation)
+    target_link_libraries(${PROJECT_NAME} PUBLIC ${UIKIT} ${FOUNDATION})
     
     # Set resources
     set_target_properties(${PROJECT_NAME} PROPERTIES RESOURCE "${RESOURCE_FILES}")
@@ -45,7 +52,7 @@ elseif(IOS)
     set_target_properties(${PROJECT_NAME} PROPERTIES XCODE_ATTRIBUTE_CLANG_ENABLE_OBJC_ARC YES)
     # Make Xcode manage library linking
     set_target_properties(${PROJECT_NAME} PROPERTIES XCODE_LINK_BUILD_PHASE_MODE KNOWN_LOCATION)
-    set_target_properties(${PROJECT_NAME} PROPERTIES MACOSX_BUNDLE_INFO_PLIST "${CMAKE_CURRENT_LIST_DIR}/Info.plist")
+    set_target_properties(${PROJECT_NAME} PROPERTIES MACOSX_BUNDLE_INFO_PLIST "${CMAKE_CURRENT_LIST_DIR}/ios/Resources/Info.plist")
 else()
     message(FATAL_ERROR "Unknown target platform")
 endif()
