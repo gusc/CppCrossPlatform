@@ -87,7 +87,8 @@ elseif(APPLE)
     set_target_properties(${PROJECT_NAME} PROPERTIES MACOSX_BUNDLE_INFO_PLIST "${CMAKE_CURRENT_LIST_DIR}/macos/Resources/Info.plist")
 elseif(WIN32)
     list(APPEND SOURCE_FILES
-            "windows/MyCrossPlatformClass.cpp")
+            "windows/MyCrossPlatformClass.cpp"
+            "windows/Utilities/main.cpp")
     add_executable(${PROJECT_NAME} ${SOURCE_FILES})
 else()
     message(FATAL_ERROR "Unknown target platform")
