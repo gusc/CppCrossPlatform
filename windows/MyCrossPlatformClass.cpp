@@ -3,6 +3,7 @@
 //
 
 #include <Windows.h>
+#include "../MyCrossPlatformClass.hpp"
 
 MyCrossPlatformClass::MyCrossPlatformClass()
 {

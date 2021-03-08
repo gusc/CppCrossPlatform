@@ -92,6 +92,12 @@ elseif(WIN32)
     list(APPEND SOURCE_FILES
             "windows/MyCrossPlatformClass.cpp"
             "windows/Utilities/main.cpp")
+
+    # Sort sources alphabetically
+    list(SORT SOURCE_FILES)
+    # Keep sources grouped by file system folders
+    source_group(TREE ${CMAKE_CURRENT_LIST_DIR} FILES ${SOURCE_FILES})
+
     add_executable(${PROJECT_NAME} ${SOURCE_FILES})
 else()
     message(FATAL_ERROR "Unknown target platform")
