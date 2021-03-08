@@ -2,7 +2,7 @@
 // Created by Gusts Kaksis on 3/6/21.
 //
 
-#include "MyCrossPlatformClass.hpp"
+#include "../MyCrossPlatformClass.hpp"
 #include "Utilities/JniHelpers.hpp"
 
 #include <stdexcept>

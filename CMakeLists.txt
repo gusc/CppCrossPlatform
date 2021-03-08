@@ -6,29 +6,29 @@ project(CppCrossPlatform LANGUAGES CXX C)
 include(Common.cmake)
 
 set(SOURCE_FILES
-        "MyCrossPlatformClass.hpp"
-        "MyCrossPlatformClass.cpp"
-        "Test.hpp"
-        "Test.cpp")
+        "Source/MyCrossPlatformClass.hpp"
+        "Source/MyCrossPlatformClass.cpp"
+        "Source/Test.hpp"
+        "Source/Test.cpp")
 
 if(ANDROID)
     list(APPEND SOURCE_FILES
-            "android/MyCrossPlatformClass.cpp"
-            "android/MyCrossPlatformClass2.hpp"
-            "android/MyCrossPlatformClass2.cpp"
-            "android/Test.cpp"
-            "android/Utilities/JniHelpers.hpp")
+            "Source/Android/MyCrossPlatformClass.cpp"
+            "Source/Android/MyCrossPlatformClass2.hpp"
+            "Source/Android/MyCrossPlatformClass2.cpp"
+            "Source/Android/Test.cpp"
+            "Source/Android/Utilities/JniHelpers.hpp")
     add_library(${PROJECT_NAME} SHARED ${SOURCE_FILES})
 elseif(IOS)
     set(RESOURCE_FILES
-            "ios/Resources/Main.storyboard")
+            "Source/iOS/Resources/Main.storyboard")
     list(APPEND SOURCE_FILES
-            "ios/MyCrossPlatformClass.mm"
-            "ios/MyCrossPlatformDelegate.hpp"
-            "ios/MyCrossPlatformDelegate.mm"
-            "ios/Utilities/AppDelegate.hpp"
-            "ios/Utilities/AppDelegate.mm"
-            "ios/Utilities/main.mm"
+            "Source/iOS/MyCrossPlatformClass.mm"
+            "Source/iOS/MyCrossPlatformDelegate.hpp"
+            "Source/iOS/MyCrossPlatformDelegate.mm"
+            "Source/iOS/Utilities/AppDelegate.hpp"
+            "Source/iOS/Utilities/AppDelegate.mm"
+            "Source/iOS/Utilities/main.mm"
             ${RESOURCE_FILES})
             
     # Sort sources alphabetically
@@ -55,17 +55,17 @@ elseif(IOS)
     set_target_properties(${PROJECT_NAME} PROPERTIES XCODE_ATTRIBUTE_CLANG_ENABLE_OBJC_ARC YES)
     # Make Xcode manage library linking
     set_target_properties(${PROJECT_NAME} PROPERTIES XCODE_LINK_BUILD_PHASE_MODE KNOWN_LOCATION)
-    set_target_properties(${PROJECT_NAME} PROPERTIES MACOSX_BUNDLE_INFO_PLIST "${CMAKE_CURRENT_LIST_DIR}/ios/Resources/Info.plist")
+    set_target_properties(${PROJECT_NAME} PROPERTIES MACOSX_BUNDLE_INFO_PLIST "${CMAKE_CURRENT_LIST_DIR}/Source/iOS/Resources/Info.plist")
 elseif(APPLE)
     set(RESOURCE_FILES
-            "macos/Resources/Main.storyboard")
+            "Source/macOS/Resources/Main.storyboard")
     list(APPEND SOURCE_FILES
-            "macos/MyCrossPlatformClass.mm"
-            "macos/MyCrossPlatformDelegate.hpp"
-            "macos/MyCrossPlatformDelegate.mm"
-            "macos/Utilities/AppDelegate.hpp"
-            "macos/Utilities/AppDelegate.mm"
-            "macos/Utilities/main.mm"
+            "Source/macOS/MyCrossPlatformClass.mm"
+            "Source/macOS/MyCrossPlatformDelegate.hpp"
+            "Source/macOS/MyCrossPlatformDelegate.mm"
+            "Source/macOS/Utilities/AppDelegate.hpp"
+            "Source/macOS/Utilities/AppDelegate.mm"
+            "Source/macOS/Utilities/main.mm"
             ${RESOURCE_FILES})
             
     # Sort sources alphabetically
@@ -87,11 +87,11 @@ elseif(APPLE)
     set_target_properties(${PROJECT_NAME} PROPERTIES XCODE_ATTRIBUTE_CLANG_ENABLE_OBJC_ARC YES)
     # Make Xcode manage library linking
     set_target_properties(${PROJECT_NAME} PROPERTIES XCODE_LINK_BUILD_PHASE_MODE KNOWN_LOCATION)
-    set_target_properties(${PROJECT_NAME} PROPERTIES MACOSX_BUNDLE_INFO_PLIST "${CMAKE_CURRENT_LIST_DIR}/macos/Resources/Info.plist")
+    set_target_properties(${PROJECT_NAME} PROPERTIES MACOSX_BUNDLE_INFO_PLIST "${CMAKE_CURRENT_LIST_DIR}/Source/macOS/Resources/Info.plist")
 elseif(WIN32)
     list(APPEND SOURCE_FILES
-            "windows/MyCrossPlatformClass.cpp"
-            "windows/Utilities/main.cpp")
+            "Source/Windows/MyCrossPlatformClass.cpp"
+            "Source/Windows/Utilities/main.cpp")
 
     # Sort sources alphabetically
     list(SORT SOURCE_FILES)
