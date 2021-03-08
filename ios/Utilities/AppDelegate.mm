@@ -7,6 +7,7 @@
 //
 
 #import "AppDelegate.hpp"
+#import "../../Test.hpp"
 
 @interface AppDelegate ()
 
@@ -16,7 +17,8 @@
 
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
-    // Override point for customization after application launch.
+    Test t;
+    t.run();
     return YES;
 }
 

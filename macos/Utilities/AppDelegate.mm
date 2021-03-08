@@ -7,6 +7,7 @@
 //
 
 #import "AppDelegate.hpp"
+#import "../../Test.hpp"
 
 @interface AppDelegate ()
 
@@ -15,7 +16,8 @@
 @implementation AppDelegate
 
 - (void)applicationDidFinishLaunching:(NSNotification *)aNotification {
-    // Insert code here to initialize your application
+    Test t;
+    t.run();
 }
 
 

@@ -21,8 +21,8 @@ public class MyCrossPlatformClass2 {
         destructNative();
     }
 
-    private void nativeMethod() {
+    public void nativeMethod() {
         Log.d("Example", "Java method called");
     }
-    private native void cppMethod();
+    public native void cppMethod();
 }

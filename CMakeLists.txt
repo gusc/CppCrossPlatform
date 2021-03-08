@@ -7,25 +7,28 @@ include(Common.cmake)
 
 set(SOURCE_FILES
         "MyCrossPlatformClass.hpp"
-        "MyCrossPlatformClass.cpp")
+        "MyCrossPlatformClass.cpp"
+        "Test.hpp"
+        "Test.cpp")
 
 if(ANDROID)
     list(APPEND SOURCE_FILES
             "android/MyCrossPlatformClass.cpp"
             "android/MyCrossPlatformClass2.hpp"
             "android/MyCrossPlatformClass2.cpp"
+            "android/Test.cpp"
             "android/Utilities/JniHelpers.hpp")
     add_library(${PROJECT_NAME} SHARED ${SOURCE_FILES})
 elseif(IOS)
     set(RESOURCE_FILES
             "ios/Resources/Main.storyboard")
     list(APPEND SOURCE_FILES
-            "ios/Utilities/AppDelegate.hpp"
-            "ios/Utilities/AppDelegate.mm"
-            "ios/Utilities/main.mm"            
             "ios/MyCrossPlatformClass.mm"
             "ios/MyCrossPlatformDelegate.hpp"
             "ios/MyCrossPlatformDelegate.mm"
+            "ios/Utilities/AppDelegate.hpp"
+            "ios/Utilities/AppDelegate.mm"
+            "ios/Utilities/main.mm"
             ${RESOURCE_FILES})
             
     # Sort sources alphabetically
@@ -57,12 +60,12 @@ elseif(APPLE)
     set(RESOURCE_FILES
             "macos/Resources/Main.storyboard")
     list(APPEND SOURCE_FILES
-            "macos/Utilities/AppDelegate.hpp"
-            "macos/Utilities/AppDelegate.mm"
-            "macos/Utilities/main.mm"            
             "macos/MyCrossPlatformClass.mm"
             "macos/MyCrossPlatformDelegate.hpp"
             "macos/MyCrossPlatformDelegate.mm"
+            "macos/Utilities/AppDelegate.hpp"
+            "macos/Utilities/AppDelegate.mm"
+            "macos/Utilities/main.mm"
             ${RESOURCE_FILES})
             
     # Sort sources alphabetically
