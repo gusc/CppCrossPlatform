@@ -14,9 +14,9 @@
 // A standard Objective-C forward declaration when compiling within an Obective-C compilation unit
 @class MyCrossPlatformDelegate;
 #   else
-#   include <objc/objc.h>
-// Declara a type alias when compiling in C++
-typedef struct objc_object MyCrossPlatformDelegate;
+#       include <objc/objc.h>
+// Declare a type alias when compiling in C++
+using MyCrossPlatformDelegate = objc_object;
 #   endif
 #endif
 
